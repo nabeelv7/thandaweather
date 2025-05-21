@@ -1,4 +1,5 @@
 <script lang="ts">
+  import Theme from "../lib/Theme.svelte";
   import { onMount } from "svelte";
 
   let city = "Delhi"; // bindable
@@ -28,6 +29,7 @@
 </script>
 
 <main class="p-6 max-w-5xl mx-auto">
+  <Theme />
   <h1 class="text-3xl font-bold mb-6 text-center">🌤️ Weather Forecast</h1>
 
   <div class="flex md:flex-row flex-col flex-wrap justify-center mb-10">
