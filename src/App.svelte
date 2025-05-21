@@ -44,28 +44,28 @@
     </button>
   </div>
 
-  {#if weatherData}
+  {#if weatherData?.cod === "200"}
     <div class="text-center mb-4">
       <h2 class="text-xl font-semibold">
-        {weatherData.city.name}, {weatherData.city.country}
+        {weatherData?.city.name}, {weatherData?.city.country}
       </h2>
       <p class="text-gray-600">
-        Lat: {weatherData.city.coord.lat}, Lon: {weatherData.city.coord.lon}
+        Lat: {weatherData?.city.coord.lat}, Lon: {weatherData?.city.coord.lon}
       </p>
     </div>
 
     <div class="flex flex-wrap justify-center gap-4">
-      {#each weatherData.list.slice(0, 8) as item}
+      {#each weatherData?.list.slice(0, 8) as item}
         <div
           class={`p-5 rounded-xl md:w-64 w-full shadow-md ${
-            Math.abs(new Date(item.dt_txt).getTime() - Date.now()) <
+            Math.abs(new Date(item?.dt_txt).getTime() - Date.now()) <
             3 * 60 * 60 * 1000
               ? "bg-primary text-primary-content"
               : "bg-base-200"
           }`}
         >
           <p class="text-sm mb-2">
-            {new Date(item.dt_txt).toLocaleString("en-US", {
+            {new Date(item?.dt_txt).toLocaleString("en-US", {
               day: "numeric",
               month: "long",
               year: "numeric",
@@ -77,23 +77,25 @@
 
           <div class="flex items-center justify-between mb-2">
             <img
-              src={`https://openweathermap.org/img/wn/${item.weather[0].icon}@2x.png`}
-              alt={item.weather[0].description}
+              src={`https://openweathermap.org/img/wn/${item?.weather[0].icon}@2x.png`}
+              alt={item?.weather[0].description}
               class="w-12 h-12"
             />
             <div>
               <p class="text-lg font-bold">
-                {kelvinToCelsius(item.main.temp)}°C
+                {kelvinToCelsius(item?.main.temp)}°C
               </p>
-              <p class="capitalize text-sm">{item.weather[0].description}</p>
+              <p class="capitalize text-sm">{item?.weather[0].description}</p>
             </div>
           </div>
 
-          <p class="text-sm">💧 Humidity: {item.main.humidity}%</p>
-          <p class="text-sm">💨 Wind: {item.wind.speed} m/s</p>
+          <p class="text-sm">💧 Humidity: {item?.main.humidity}%</p>
+          <p class="text-sm">💨 Wind: {item?.wind.speed} m/s</p>
         </div>
       {/each}
     </div>
+  {:else}
+    <p class="text-center text-error">City Not Found!</p>
   {/if}
 </main>
 <div class="h-20 flex justify-center items-center">
